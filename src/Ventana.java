@@ -1,43 +1,43 @@
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.JToolBar;
-public class Ventana {
-
-	private JFrame frmCalculadora;
-
-	/**
-	 * Launch the application.
-	 */
+public class Ventana extends JFrame{
+	JPanel panel_principal;
+	JPanel panel_secundario;
+	JTextField panel_numerico;
+	
+	//Metodo main (opcional?)
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Ventana window = new Ventana();
-					window.frmCalculadora.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		new Ventana();
 	}
-
-	/**
-	 * Create the application.
-	 */
+	
+	//Iniciar la ventana
+	private void init() {
+		panel_principal=new JPanel();
+		panel_secundario=new JPanel();
+		panel_numerico=new JTextField();
+		panel_principal.setLayout(new BorderLayout());
+		panel_principal.add("North",panel_numerico);
+		panel_secundario.setLayout(new GridLayout(5,4,8,8));
+		panel_principal.add("Center",panel_secundario);
+		getContentPane().add(panel_principal);
+	}
+	
+	//Crear la ventana
 	public Ventana() {
-		initialize();
+		setTitle("Calculadora");
+		setSize(400,300);
+		setResizable(false);
+		setBounds(200, 200, 400, 300);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		init();
+		setVisible(true);
 	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frmCalculadora = new JFrame();
-		frmCalculadora.setTitle("Calculadora");
-		frmCalculadora.setResizable(false);
-		frmCalculadora.setBounds(100, 100, 401, 301);
-		frmCalculadora.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-
+	
 }

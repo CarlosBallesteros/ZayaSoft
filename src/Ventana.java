@@ -9,40 +9,68 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+/**
+ * Calculadora con interfaz grafica
+ * 
+ * @author Carlos Ballesteros
+ * 
+ *@version 3.* 30-Abril-2015
+ */
 public class Ventana extends JFrame{
 	//Parametros de los paneles
-	JPanel panel_principal;
-	JPanel panel_secundario;
-	JTextField caja;
+	private JPanel panel_principal;
+	private JPanel panel_secundario;
+	private JTextField caja;
 	//Parametros de los botones
-	JButton boton[];
-	double op1=0,op2=0,memoria=0;
-	String operacion="";
-	boolean nueva=true;
+	private JButton[] boton;
+	private double op1=0,op2=0,memoria=0;
+	private String operacion="";
+	private boolean nueva=true;
+	/**
+	 * @param panel_principal Parametro JPanel que define el panel que va a ocupar toda la ventana.
+	 * @param panel_secundario Parametro JPanel que define el panel de los botones.
+	 * @param caja Parametro JTextField que define el panel donde se visualizan los resultados.
+	 * @param boton Parametro conjunto array de botones.
+	 * @param op1 Parametro double que guarda valores a operar.
+	 * @param op2 Parametro double que guarda valores a operar.
+	 * @param memoria Parametro double que guarda valores en memoria.
+	 * @param operacion Parametro String que guarda el nombre de la operacion a realizar.
+	 * @param nueva Parametro boolean que determina si empezamos una nueva operacion o continuamos otra.
+	 */
 	
-	
-	//Metodo main (opcional?)
+	//Metodo main (opcional: se puede añadir a la clase Main)
 	public static void main(String[] args) {
+		/**
+		 * Metodo main que inicia la calculadora.
+		 */
 		new Ventana();
 	}
 	
 	//Iniciar la ventana
 	private void init() {
-		panel_principal=new JPanel();
-		panel_secundario=new JPanel();
-		caja=new JTextField();
-		panel_principal.setLayout(new BorderLayout());
-		panel_principal.add("North",caja);
-		panel_secundario.setLayout(new GridLayout(5,4,5,5));
-		añadirBotones();
-		panel_principal.add("Center",panel_secundario);
-		getContentPane().add(panel_principal);
+		/**
+		 * Metodo init que inicia la estructura de la ventana calculadora
+		 * Usa el metodo añadirBotones.
+		 */
+		panel_principal=new JPanel();		//Iniciamos
+		panel_secundario=new JPanel();		//los
+		caja=new JTextField();				//paneles
+		caja.setHorizontalAlignment(JTextField.TRAILING);//alinear el texto a la derecha (TRAILING=RIGHT ?)
+		panel_principal.setLayout(new BorderLayout());//le damos layout al panel principal
+		panel_principal.add("North",caja);//añadimos la caja de texto al panel principal
+		panel_secundario.setLayout(new GridLayout(5,4,5,5));//le damos layout al panel secundario
+		añadirBotones();//añadimos los botones
+		panel_principal.add("Center",panel_secundario);//añadimos el panel secundario al panel principal
+		getContentPane().add(panel_principal);//añadimos el panel principal a la ventana
 	}
 	
 	//Crear los botones
 	private void añadirBotones() {
+		/**
+		 * Metodo añadirBotones que crea los botones y define sus funciones.
+		 */
+		//CREAMOS EL ARRAY BOTON DE 20 BOTONES
 		boton = new JButton[20];
-		
         //INICIALIZAMOS LOS BOTONES
         boton[0]=new JButton("CE");
         boton[1]=new JButton("MR");
@@ -64,13 +92,14 @@ public class Ventana extends JFrame{
         boton[17]=new JButton(".");
         boton[18]=new JButton("=");
         boton[19]=new JButton("+");
-        //AGREAMOS LOS BOTONES AL PANEL BOTONES
+        //AGREGAMOS LOS BOTONES AL PANEL BOTONES
         for(int i=0;i<20;i++){
             panel_secundario.add(boton[i]);
         }
-        caja.setText("0");
-        //EVENTOS DE LOS BOTONES
+        caja.setText("0");//Empezar la calculadora en 0
+        //DEFINIMOS LOS EVENTOS DE LOS BOTONES
         //MEMORIA
+        //MR mostrar memoria
         boton[1].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -79,12 +108,14 @@ public class Ventana extends JFrame{
                 nueva=true;
             }
         });
+        //M+ añadir a memoria
         boton[2].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
             	memoria=memoria+Double.parseDouble(caja.getText());
             }
         });
+        //M- restar a memoria
         boton[3].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -92,6 +123,7 @@ public class Ventana extends JFrame{
             }
         });
         //OPERACIONES
+        //+ sumar
         boton[19].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -106,6 +138,7 @@ public class Ventana extends JFrame{
                 }catch(Exception err){}
             }
         });
+        //- restar
         boton[15].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -120,6 +153,7 @@ public class Ventana extends JFrame{
                 }catch(Exception err){}
             }
         });
+        //* multiplicar
         boton[11].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -134,6 +168,7 @@ public class Ventana extends JFrame{
                 }catch(Exception err){}
             }
         });
+        // / division
         boton[7].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -149,6 +184,7 @@ public class Ventana extends JFrame{
             }
         });
         //NUMEROS Y PUNTO DECIMAL
+        //7
         boton[4].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -156,6 +192,7 @@ public class Ventana extends JFrame{
                 caja.setText(caja.getText()+"7");
             }
         });
+        //8
         boton[5].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -163,6 +200,7 @@ public class Ventana extends JFrame{
                 caja.setText(caja.getText()+"8");
             }
         });
+        //9
         boton[6].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -170,6 +208,7 @@ public class Ventana extends JFrame{
                 caja.setText(caja.getText()+"9");
             }
         });
+        //4
         boton[8].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -177,6 +216,7 @@ public class Ventana extends JFrame{
                 caja.setText(caja.getText()+"4");
             }
         });
+        //5
         boton[9].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -184,6 +224,7 @@ public class Ventana extends JFrame{
                 caja.setText(caja.getText()+"5");
             }
         });
+        //6
         boton[10].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -191,6 +232,7 @@ public class Ventana extends JFrame{
                 caja.setText(caja.getText()+"6");
             }
         });
+        //1
         boton[12].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -198,6 +240,7 @@ public class Ventana extends JFrame{
                 caja.setText(caja.getText()+"1");
             }
         });
+        //2
         boton[13].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -205,6 +248,7 @@ public class Ventana extends JFrame{
                 caja.setText(caja.getText()+"2");
             }
         });
+        //3
         boton[14].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -212,6 +256,7 @@ public class Ventana extends JFrame{
                 caja.setText(caja.getText()+"3");
             }
         });
+        //0
         boton[16].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -219,6 +264,7 @@ public class Ventana extends JFrame{
                 caja.setText(caja.getText()+"0");
             }
         });
+        //. añair decimales
         boton[17].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -227,6 +273,7 @@ public class Ventana extends JFrame{
             }
         });
         //IGUAL
+        //= obtener resultado
         boton[18].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -257,7 +304,7 @@ public class Ventana extends JFrame{
                 nueva=true;
             }
         });
-        //CE
+        //CE reiniciar calculo
         boton[0].addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt){
@@ -271,13 +318,17 @@ public class Ventana extends JFrame{
 	
 	//Crear la ventana
 	public Ventana() {
-		setTitle("Calculadora");
-		setSize(250,250);
-		setResizable(false);
-		setBounds(250, 250, 250, 250);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		init();
-		setVisible(true);
+		/**
+		 * Metodo constructor Ventana que inicia la ventana calculadora.
+		 * Usa el metodo init.
+		 */
+		setTitle("Calculadora");//titulo
+		setSize(250,250);//tamaño
+		setResizable(false);//NO se puede cambiar el tamaño
+		setBounds(250, 250, 250, 250);//definir limites de la ventana
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//el programa termina al cerrar la ventana
+		init();//iniciar
+		setVisible(true);//hacerla visible
 	}
 	
 }

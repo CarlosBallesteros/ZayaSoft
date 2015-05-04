@@ -1,6 +1,7 @@
 import java.util.Scanner;
 public class Main {
 	public static void main(String[] args) {
+		/*PROGRAMA ANTIGUO
 		int a,b;
 		int n=1;
 		Scanner leer=new Scanner(System.in);
@@ -36,7 +37,8 @@ public class Main {
 		
 		
 		}
-		
+		*/
+		new Ventana();//NUEVO PROGRAMA MEJORADO
 	}
 
 }
